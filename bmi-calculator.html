@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BMI Calculator - Calculate Body Mass Index | CaloriePilot</title>
+
+<meta name="description" content="Use the free CaloriePilot BMI Calculator to calculate your Body Mass Index based on your height and weight.">
+
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://caloriepilot.mycaloriepilot.workers.dev/bmi-calculator.html">
+
+<meta property="og:title" content="BMI Calculator - CaloriePilot">
+<meta property="og:description" content="Calculate your Body Mass Index for free with the CaloriePilot BMI Calculator.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://caloriepilot.mycaloriepilot.workers.dev/bmi-calculator.html">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "name":"BMI Calculator",
+  "description":"Free online BMI calculator for calculating Body Mass Index.",
+  "url":"https://caloriepilot.mycaloriepilot.workers.dev/bmi-calculator.html",
+  "isPartOf":{
+    "@type":"WebSite",
+    "name":"CaloriePilot",
+    "url":"https://caloriepilot.mycaloriepilot.workers.dev/"
+  }
+}
+</script>
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#f5f7fb;
+color:#172033;
+line-height:1.7;
+}
+
+header{
+background:#fff;
+border-bottom:1px solid #e5e9f0;
+}
+
+.nav{
+max-width:1100px;
+margin:auto;
+padding:16px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:24px;
+font-weight:800;
+color:#1769e0;
+text-decoration:none;
+}
+
+.home{
+color:#536176;
+text-decoration:none;
+font-weight:600;
+}
+
+.hero{
+background:#fff;
+text-align:center;
+padding:55px 20px;
+}
+
+.hero h1{
+font-size:42px;
+line-height:1.2;
+margin-bottom:15px;
+}
+
+.hero h1 span{
+color:#1769e0;
+}
+
+.hero p{
+max-width:750px;
+margin:auto;
+color:#687386;
+font-size:18px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:40px 20px;
+}
+
+.calculator{
+background:#fff;
+padding:30px;
+border-radius:18px;
+box-shadow:0 8px 30px rgba(20,40,80,.08);
+margin-bottom:35px;
+}
+
+.calculator h2{
+text-align:center;
+margin-bottom:8px;
+}
+
+.description{
+text-align:center;
+color:#687386;
+margin-bottom:25px;
+}
+
+.fields{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+}
+
+.field label{
+display:block;
+font-weight:bold;
+margin-bottom:6px;
+}
+
+.field input{
+width:100%;
+padding:13px;
+border:1px solid #d7dee9;
+border-radius:10px;
+font-size:16px;
+background:#fff;
+}
+
+button{
+width:100%;
+padding:15px;
+margin-top:20px;
+border:0;
+border-radius:11px;
+background:#1769e0;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+background:#0f58c5;
+}
+
+.result{
+display:none;
+margin-top:25px;
+padding:25px;
+border-radius:15px;
+background:#eef5ff;
+text-align:center;
+}
+
+.result.show{
+display:block;
+}
+
+.result-title{
+color:#687386;
+font-size:14px;
+}
+
+.result-main{
+font-size:34px;
+font-weight:bold;
+color:#1769e0;
+margin:5px 0;
+}
+
+.result-info{
+color:#596579;
+}
+
+.content{
+background:#fff;
+padding:30px;
+border-radius:18px;
+margin-bottom:25px;
+}
+
+.content h2{
+margin-bottom:12px;
+margin-top:20px;
+}
+
+.content h2:first-child{
+margin-top:0;
+}
+
+.content h3{
+margin-top:20px;
+margin-bottom:8px;
+}
+
+.content p{
+color:#596579;
+margin-bottom:14px;
+}
+
+.links{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.links a{
+display:block;
+padding:14px;
+background:#f5f7fb;
+border-radius:10px;
+color:#1769e0;
+text-decoration:none;
+font-weight:bold;
+}
+
+footer{
+text-align:center;
+padding:35px 20px;
+background:#fff;
+border-top:1px solid #e5e9f0;
+color:#7a8494;
+}
+
+@media(max-width:700px){
+
+.hero h1{
+font-size:32px;
+}
+
+.hero p{
+font-size:16px;
+}
+
+.fields{
+grid-template-columns:1fr;
+}
+
+.calculator,
+.content{
+padding:22px;
+}
+
+.links{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="nav">
+
+<a class="logo" href="/">
+CaloriePilot
+</a>
+
+<a class="home" href="/">
+Home
+</a>
+
+</div>
+
+</header>
+
+<section class="hero">
+
+<h1>
+Free <span>BMI Calculator</span>
+</h1>
+
+<p>
+Calculate your Body Mass Index using your height and weight.
+</p>
+
+</section>
+
+<main class="container">
+
+<section class="calculator">
+
+<h2>
+BMI Calculator
+</h2>
+
+<p class="description">
+Enter your weight and height to calculate your estimated BMI.
+</p>
+
+<div class="fields">
+
+<div class="field">
+
+<label for="weight">
+Weight (kg)
+</label>
+
+<input
+id="weight"
+type="number"
+min="1"
+step="0.1"
+placeholder="70"
+>
+
+</div>
+
+<div class="field">
+
+<label for="height">
+Height (cm)
+</label>
+
+<input
+id="height"
+type="number"
+min="50"
+max="250"
+step="0.1"
+placeholder="175"
+>
+
+</div>
+
+</div>
+
+<button onclick="calculateBMI()">
+Calculate BMI
+</button>
+
+<div class="result" id="result">
+
+<div class="result-title">
+Your Estimated BMI
+</div>
+
+<div class="result-main" id="mainResult"></div>
+
+<div class="result-info" id="resultInfo"></div>
+
+</div>
+
+</section>
+
+<section class="content">
+
+<h2>
+What Is BMI?
+</h2>
+
+<p>
+BMI stands for Body Mass Index. It is a commonly used measurement
+that compares a person's weight with their height.
+</p>
+
+<h2>
+How Is BMI Calculated?
+</h2>
+
+<p>
+BMI is calculated by dividing weight in kilograms by height in
+meters squared.
+</p>
+
+<p>
+The formula is:
+<strong>BMI = weight (kg) ÷ height² (m)</strong>
+</p>
+
+<h2>
+BMI Categories</h2>
+
+<p>
+For adults, BMI values are commonly grouped into categories such
+as underweight, normal range, overweight and obesity range.
+</p>
+
+<h2>
+BMI Limitations
+</h2>
+
+<p>
+BMI is a general screening measurement and does not directly
+measure body fat. It may not accurately represent body composition
+for every person, including people with high muscle mass.
+</p>
+
+<p>
+CaloriePilot provides general informational estimates and does not
+provide medical advice.
+</p>
+
+</section>
+
+<section class="content">
+
+<h2>
+Frequently Asked Questions
+</h2>
+
+<h3>
+What is a normal BMI?
+</h3>
+
+<p>
+For many adults, a BMI from 18.5 to 24.9 is commonly classified
+as the normal or healthy range.
+</p>
+
+<h3>
+Is BMI the same for men and women?
+</h3>
+
+<p>
+The standard adult BMI calculation uses the same formula for men
+and women. Interpretation can depend on age and individual factors.
+</p>
+
+<h3>
+Can BMI tell me how much body fat I have?
+</h3>
+
+<p>
+No. BMI does not directly measure body fat percentage or body
+composition.
+</p>
+
+<h3>
+Is BMI suitable for children?
+</h3>
+
+<p>
+Adult BMI categories should not be applied directly to children.
+Children and teenagers are generally assessed using age- and
+sex-specific growth charts.
+</p>
+
+</section>
+
+<section class="content">
+
+<h2>
+More Free Fitness Calculators
+</h2>
+
+<div class="links">
+
+<a href="/calorie-calculator.html">
+Calorie Calculator
+</a>
+
+<a href="/bmr-calculator.html">
+BMR Calculator
+</a>
+
+<a href="/tdee-calculator.html">
+TDEE Calculator
+</a>
+
+<a href="/protein-calculator.html">
+Protein Calculator
+</a>
+
+<a href="/macro-calculator.html">
+Macro Calculator
+</a>
+
+<a href="/calorie-deficit-calculator.html">
+Calorie Deficit Calculator
+</a>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>
+© 2026 CaloriePilot. All rights reserved.
+</p>
+
+<p>
+Results are estimates and are not medical advice.
+</p>
+
+</footer>
+
+<script>
+
+function calculateBMI(){
+
+const weight =
+Number(document.getElementById("weight").value);
+
+const height =
+Number(document.getElementById("height").value);
+
+if(!weight || !height){
+
+alert(
+"Please enter your weight and height."
+);
+
+return;
+
+}
+
+const heightMeters =
+height / 100;
+
+const bmi =
+weight / Math.pow(heightMeters,2);
+
+let category;
+
+if(bmi < 18.5){
+
+category = "Underweight";
+
+}else if(bmi < 25){
+
+category = "Normal range";
+
+}else if(bmi < 30){
+
+category = "Overweight";
+
+}else{
+
+category = "Obesity range";
+
+}
+
+document.getElementById("mainResult").textContent =
+bmi.toFixed(1);
+
+document.getElementById("resultInfo").textContent =
+category;
+
+document.getElementById("result").classList.add("show");
+
+}
+
+</script>
+
+</body>
+</html>
