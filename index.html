@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CaloriePilot - Free Calorie, BMR, TDEE & BMI Calculators</title>
+
+<meta name="description" content="Free calorie, BMR, TDEE, BMI and calorie deficit calculators. Calculate your daily calorie needs and fitness goals instantly.">
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #172033;
+    line-height: 1.6;
+}
+
+header {
+    background: #ffffff;
+    border-bottom: 1px solid #e6eaf0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav {
+    max-width: 1100px;
+    margin: auto;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1769e0;
+}
+
+.nav-links {
+    display: flex;
+    gap: 18px;
+}
+
+.nav-links button {
+    border: none;
+    background: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: #536176;
+    cursor: pointer;
+}
+
+.nav-links button:hover {
+    color: #1769e0;
+}
+
+.hero {
+    background: #ffffff;
+    text-align: center;
+    padding: 70px 20px 60px;
+}
+
+.hero h1 {
+    font-size: 42px;
+    line-height: 1.15;
+    margin-bottom: 18px;
+}
+
+.hero h1 span {
+    color: #1769e0;
+}
+
+.hero p {
+    max-width: 680px;
+    margin: auto;
+    color: #667287;
+    font-size: 18px;
+}
+
+.hero-button {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 15px 28px;
+    background: #1769e0;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.container {
+    max-width: 1050px;
+    margin: auto;
+    padding: 50px 20px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.section-title h2 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.section-title p {
+    color: #6d788a;
+}
+
+.tools {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.tool-card {
+    background: white;
+    border: 1px solid #e5e9f0;
+    border-radius: 16px;
+    padding: 25px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tool-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(30, 50, 90, 0.09);
+}
+
+.tool-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+}
+
+.tool-card h3 {
+    margin-bottom: 7px;
+}
+
+.tool-card p {
+    color: #697588;
+    font-size: 14px;
+}
+
+.calculator-section {
+    display: none;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.calculator-section.active {
+    display: block;
+}
+
+.back-button {
+    border: none;
+    background: none;
+    color: #1769e0;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.calculator {
+    background: white;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 8px 30px rgba(20, 40, 80, 0.08);
+}
+
+.calculator h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.calculator-intro {
+    color: #687386;
+    margin-bottom: 25px;
+}
+
+.gender {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.gender button {
+    border: 2px solid #dce3ed;
+    background: white;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.gender button.active {
+    border-color: #1769e0;
+    background: #eef5ff;
+    color: #1769e0;
+    font-weight: 700;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.field {
+    margin-bottom: 18px;
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d7dee9;
+    border-radius: 10px;
+    font-size: 16px;
+    background: white;
+    outline: none;
+}
+
+input:focus,
+select:focus {
+    border-color: #1769e0;
+}
+
+.calculate {
+    width: 100%;
+    border: none;
+    background: #1769e0;
+    color: white;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.results {
+    display: none;
+    margin-top: 25px;
+}
+
+.results.show {
+    display: block;
+}
+
+.main-result {
+    background: #eef5ff;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.main-result small {
+    color: #65738a;
+}
+
+.main-result h3 {
+    color: #1769e0;
+    font-size: 34px;
+    margin: 4px 0;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.result-card {
+    background: #f8fafc;
+    border: 1px solid #e7ebf1;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+}
+
+.result-card span {
+    display: block;
+    color: #697588;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.result-card strong {
+    font-size: 19px;
+}
+
+.info {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e8ecf2;
+    color: #606c7f;
+    font-size: 14px;
+}
+
+footer {
+    background: #ffffff;
+    border-top: 1px solid #e5e9f0;
+    text-align: center;
+    padding: 35px 20px;
+    color: #7a8494;
+    font-size: 14px;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 750px) {
+
+    .nav-links {
+        display: none;
+    }
+
+    .hero {
+        padding: 50px 20px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .tools {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .full {
+        grid-column: auto;
+    }
+
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .calculator {
+        padding: 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="nav">
+        <div class="logo">CaloriePilot</div>
+
+        <div class="nav-links">
+            <button onclick="showHome()">Home</button>
+            <button onclick="openCalculator('calorie')">Calorie</button>
+            <button onclick="openCalculator('bmi')">BMI</button>
+            <button onclick="openCalculator('tdee')">TDEE</button>
+        </div>
+    </div>
+</header>
+
+<section id="home">
+
+    <div class="hero">
+        <h1>
+            Calculate Your <span>Calories</span> & Fitness Needs
+        </h1>
+
+        <p>
+            Free, simple and easy-to-use calculators for calories,
+            BMR, TDEE, BMI and calorie deficits.
+        </p>
+
+        <button class="hero-button" onclick="openCalculator('calorie')">
+            Calculate My Calories
+        </button>
+    </div>
+
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Free Fitness Calculators</h2>
+            <p>Choose a calculator to get started.</p>
+        </div>
+
+        <div class="tools">
+
+            <div class="tool-card" onclick="openCalculator('calorie')">
+                <div class="tool-icon">🔥</div>
+                <h3>Calorie Calculator</h3>
+                <p>Estimate your daily calorie needs based on your body and activity.</p>
+            </div>
+
+            <div class="tool-card" onclick="openCalculator('bmr')">
+                <div class="tool-icon">⚡</div>
+                <h3>BMR Calculator</h3>
+                <p>Calculate your Basal Metabolic Rate.</p>
+            </div>
+
+            <div class="tool-card" onclick="openCalculator('tdee')">
+                <div class="tool-icon">🏃</div>
+                <h3>TDEE Calculator</h3>
+                <p>Estimate how many calories you burn each day.</p>
+            </div>
+
+            <div class="tool-card" onclick="openCalculator('bmi')">
+                <div class="tool-icon">⚖️</div>
+                <h3>BMI Calculator</h3>
+                <p>Calculate your Body Mass Index.</p>
+            </div>
+
+            <div class="tool-card" onclick="openCalculator('deficit')">
+                <div class="tool-icon">🎯</div>
+                <h3>Calorie Deficit</h3>
+                <p>Estimate a calorie target for weight loss.</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">🥗</div>
+                <h3>More Coming Soon</h3>
+                <p>Macro, protein, weight loss and other calculators are coming soon.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CALORIE CALCULATOR -->
+
+<section id="calorie" class="calculator-section">
+
+    <div class="container">
+
+        <button class="back-button" onclick="showHome()">← Back to calculators</button>
+
+        <div class="calculator">
+
+            <h2>Calorie Calculator</h2>
+
+            <p class="calculator-intro">
+                Estimate your daily calorie needs using your age,
+                body measurements and activity level.
+            </p>
+
+            <div class="gender">
+
+                <button id="calMale" class="active" onclick="setGender('male')">
+                    Male
+                </button>
+
+                <button id="calFemale" onclick="setGender('female')">
+                    Female
+                </button>
+
+            </div>
+
+            <div class="form-grid">
+
+                <div class="field">
+                    <label>Age</label>
+                    <input id="calAge" type="number" placeholder="e.g. 25">
+                </div>
+
+                <div class="field">
+                    <label>Weight (kg)</label>
+                    <input id="calWeight" type="number" placeholder="e.g. 70">
+                </div>
+
+                <div class="field">
+                    <label>Height (cm)</label>
+                    <input id="calHeight" type="number" placeholder="e.g. 175">
+                </div>
+
+                <div class="field">
+                    <label>Activity Level</label>
+
+                    <select id="calActivity">
+                        <option value="1.2">Sedentary</option>
+                        <option value="1.375">Lightly Active</option>
+                        <option value="1.55">Moderately Active</option>
+                        <option value="1.725">Very Active</option>
+                        <option value="1.9">Extremely Active</option>
+                    </select>
+                </div>
+
+                <div class="field full">
+                    <label>Goal</label>
+
+                    <select id="calGoal">
+                        <option value="maintain">Maintain Weight</option>
+                        <option value="lose">Lose Weight</option>
+                        <option value="gain">Gain Weight</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <button class="calculate" onclick="calculateCalories()">
+                Calculate Calories
+            </button>
+
+            <div id="calResults" class="results">
+
+                <div class="main-result">
+                    <small>Estimated Daily Calories</small>
+                    <h3 id="calTarget">0 kcal</h3>
+                    <span id="calGoalText"></span>
+                </div>
+
+                <div class="result-grid">
+
+                    <div class="result-card">
+                        <span>BMR</span>
+                        <strong id="calBmr">0</strong>
+                    </div>
+
+                    <div class="result-card">
+                        <span>TDEE</span>
+                        <strong id="calTdee">0</strong>
+                    </div>
+
+                    <div class="result-card">
+                        <span>Target</span>
+                        <strong id="calTargetSmall">0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- BMR -->
+
+<section id="bmr" class="calculator-section">
+
+    <div class="container">
+
+        <button class="back-button" onclick="showHome()">← Back to calculators</button>
+
+        <div class="calculator">
+
+            <h2>BMR Calculator</h2>
+
+            <p class="calculator-intro">
+                Calculate the estimated number of calories your body
+                burns at complete rest.
+            </p>
+
+            <div class="gender">
+
+                <button id="bmrMale" class="active" onclick="setBmrGender('male')">
+                    Male
+                </button>
+
+                <button id="bmrFemale" onclick="setBmrGender('female')">
+                    Female
+                </button>
+
+            </div>
+
+            <div class="form-grid">
+
+                <div class="field">
+                    <label>Age</label>
+                    <input id="bmrAge" type="number" placeholder="e.g. 25">
+                </div>
+
+                <div class="field">
+                    <label>Weight (kg)</label>
+                    <input id="bmrWeight" type="number" placeholder="e.g. 70">
+                </div>
+
+                <div class="field full">
+                    <label>Height (cm)</label>
+                    <input id="bmrHeight" type="number" placeholder="e.g. 175">
+                </div>
+
+            </div>
+
+            <button class="calculate" onclick="calculateBMR()">
+                Calculate BMR
+            </button>
+
+            <div id="bmrResults" class="results">
+
+                <div class="main-result">
+                    <small>Your Estimated BMR</small>
+                    <h3 id="bmrValue">0 kcal/day</h3>
+                </div>
+
+                <div class="info">
+                    BMR stands for Basal Metabolic Rate. It is an estimate
+                    of the energy your body needs to perform basic functions
+                    while at complete rest.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TDEE -->
+
+<section id="tdee" class="calculator-section">
+
+    <div class="container">
+
+        <button class="back-button" onclick="showHome()">← Back to calculators</button>
+
+        <div class="calculator">
+
+            <h2>TDEE Calculator</h2>
+
+            <p class="calculator-intro">
+                Estimate your Total Daily Energy Expenditure based on
+                your BMR and activity level.
+            </p>
+
+            <div class="gender">
+
+                <button id="tdeeMale" class="active" onclick="setTdeeGender('male')">
+                    Male
+                </button>
+
+                <button id="tdeeFemale" onclick="setTdeeGender('female')">
+                    Female
+                </button>
+
+            </div>
+
+            <div class="form-grid">
+
+                <div class="field">
+                    <label>Age</label>
+                    <input id="tdeeAge" type="number" placeholder="e.g. 25">
+                </div>
+
+                <div class="field">
+                    <label>Weight (kg)</label>
+                    <input id="tdeeWeight" type="number" placeholder="e.g. 70">
+                </div>
+
+                <div class="field">
+                    <label>Height (cm)</label>
+                    <input id="tdeeHeight" type="number" placeholder="e.g. 175">
+                </div>
+
+                <div class="field">
+                    <label>Activity Level</label>
+
+                    <select id="tdeeActivity">
+                        <option value="1.2">Sedentary</option>
+                        <option value="1.375">Lightly Active</option>
+                        <option value="1.55">Moderately Active</option>
+                        <option value="1.725">Very Active</option>
+                        <option value="1.9">Extremely Active</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+            <button class="calculate" onclick="calculateTDEE()">
+                Calculate TDEE
+            </button>
+
+            <div id="tdeeResults" class="results">
+
+                <div class="main-result">
+                    <small>Your Estimated TDEE</small>
+                    <h3 id="tdeeValue">0 kcal/day</h3>
+                </div>
+
+                <div class="result-grid">
+
+                    <div class="result-card">
+                        <span>BMR</span>
+                        <strong id="tdeeBmr">0</strong>
+                    </div>
+
+                    <div class="result-card">
+                        <span>TDEE</span>
+                        <strong id="tdeeResult">0</strong>
+                    </div>
+
+                    <div class="result-card">
+                        <span>Activity Factor</span>
+                        <strong id="activityFactor">0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- BMI -->
+
+<section id="bmi" class="calculator-section">
+
+    <div class="container">
+
+        <button class="back-button" onclick="showHome()">← Back to calculators</button>
+
+        <div class="calculator">
+
+            <h2>BMI Calculator</h2>
+
+            <p class="calculator-intro">
+                Calculate your Body Mass Index using your height and weight.
+            </p>
+
+            <div class="form-grid">
+
+                <div class="field">
+                    <label>Weight (kg)</label>
+                    <input id="bmiWeight" type="number" placeholder="e.g. 70">
+                </div>
+
+                <div class="field">
+                    <label>Height (cm)</label>
+                    <input id="bmiHeight" type="number" placeholder="e.g. 175">
+                </div>
+
+            </div>
+
+            <button class="calculate" onclick="calculateBMI()">
+                Calculate BMI
+            </button>
+
+            <div id="bmiResults" class="results">
+
+                <div class="main-result">
+                    <small>Your BMI</small>
+                    <h3 id="bmiValue">0</h3>
+                    <span id="bmiCategory"></span>
+                </div>
+
+                <div class="info">
+                    BMI is a general screening measure based on height
+                    and weight. It does not directly measure body fat
+                    or overall health.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- DEFICIT -->
+
+<section id="deficit" class="calculator-section">
+
+    <div class="container">
+
+        <button class="back-button" onclick="showHome()">← Back to calculators</button>
+
+        <div class="calculator">
+
+            <h2>Calorie Deficit Calculator</h2>
+
+            <p class="calculator-intro">
+                Estimate a daily calorie target for gradual weight loss.
+            </p>
+
+            <div class="gender">
+
+                <button id="defMale" class="active" onclick="setDefGender('male')">
+                    Male
+                </button>
+
+                <button id="defFemale" onclick="setDefGender('female')">
+                    Female
+                </button>
+
+            </div>
+
+            <div class="form-grid">
+
+                <div class="field">
+                    <label>Age</label>
+                    <input id="defAge" type="number" placeholder="e.g. 25">
+                </div>
+
+                <div class="field">
+                    <label>Weight (kg)</label>
+                    <input id="defWeight" type="number" placeholder="e.g. 70">
+                </div>
+
+                <div class="field">
+                    <label>Height (cm)</label>
+                    <input id="defHeight" type="number" placeholder="e.g. 175">
+                </div>
+
+                <div class="field">
+                    <label>Activity Level</label>
+
+                    <select id="defActivity">
+                        <option value="1.2">Sedentary</option>
+                        <option value="1.375">Lightly Active</option>
+                        <option value="1.55">Moderately Active</option>
+                        <option value="1.725">Very Active</option>
+                        <option value="1.9">Extremely Active</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+            <button class="calculate" onclick="calculateDeficit()">
+                Calculate Deficit
+            </button>
+
+            <div id="defResults" class="results">
+
+                <div class="main-result">
+                    <small>Estimated Weight Loss Target</small>
+                    <h3 id="defTarget">0 kcal/day</h3>
+                    <span>Based on an estimated 500 calorie daily deficit</span>
+                </div>
+
+                <div class="result-grid">
+
+                    <div class="result-card">
+                        <span>BMR</span>
+                        <strong id="defBmr">0</strong>
+                    </div>
+
+                    <div class="result-card">
+                        <span>Maintenance</span>
+                        <strong id="defTdee">0</strong>
+                    </div>
+
+                    <div class="result-card">
+                        <span>Deficit</span>
+                        <strong>500 kcal</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+    <p>© 2026 CaloriePilot. All rights reserved.</p>
+    <p>Calorie and fitness calculations are estimates and are not medical advice.</p>
+</footer>
+
+
+<script>
+
+let gender = "male";
+let bmrGender = "male";
+let tdeeGender = "male";
+let defGender = "male";
+
+
+function showHome() {
+
+    document.getElementById("home").style.display = "block";
+
+    document.querySelectorAll(".calculator-section").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+function openCalculator(name) {
+
+    document.getElementById("home").style.display = "none";
+
+    document.querySelectorAll(".calculator-section").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    document.getElementById(name).classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+function calculateBMRValue(age, weight, height, selectedGender) {
+
+    if (selectedGender === "male") {
+
+        return (10 * weight) +
+               (6.25 * height) -
+               (5 * age) +
+               5;
+
+    } else {
+
+        return (10 * weight) +
+               (6.25 * height) -
+               (5 * age) -
+               161;
+    }
+}
+
+
+function setGender(value) {
+
+    gender = value;
+
+    document.getElementById("calMale").classList.remove("active");
+    document.getElementById("calFemale").classList.remove("active");
+
+    if (value === "male") {
+        document.getElementById("calMale").classList.add("active");
+    } else {
+        document.getElementById("calFemale").classList.add("active");
+    }
+}
+
+
+function calculateCalories() {
+
+    const age = Number(document.getElementById("calAge").value);
+    const weight = Number(document.getElementById("calWeight").value);
+    const height = Number(document.getElementById("calHeight").value);
+
+    const activity = Number(document.getElementById("calActivity").value);
+    const goal = document.getElementById("calGoal").value;
+
+    if (!age || !weight || !height) {
+        alert("Please enter your age, weight and height.");
+        return;
+    }
+
+    const bmr = calculateBMRValue(age, weight, height, gender);
+    const tdee = bmr * activity;
+
+    let target = tdee;
+
+    if (goal === "lose") {
+        target = tdee - 500;
+    }
+
+    if (goal === "gain") {
+        target = tdee + 300;
+    }
+
+    document.getElementById("calBmr").textContent =
+        Math.round(bmr) + " kcal";
+
+    document.getElementById("calTdee").textContent =
+        Math.round(tdee) + " kcal";
+
+    document.getElementById("calTargetSmall").textContent =
+        Math.round(target) + " kcal";
+
+    document.getElementById("calTarget").textContent =
+        Math.round(target) + " kcal/day";
+
+    let text = "Estimated maintenance calories";
+
+    if (goal === "lose") {
+        text = "Estimated calories for weight loss";
+    }
+
+    if (goal === "gain") {
+        text = "Estimated calories for weight gain";
+    }
+
+    document.getElementById("calGoalText").textContent = text;
+
+    document.getElementById("calResults").classList.add("show");
+}
+
+
+function setBmrGender(value) {
+
+    bmrGender = value;
+
+    document.getElementById("bmrMale").classList.remove("active");
+    document.getElementById("bmrFemale").classList.remove("active");
+
+    if (value === "male") {
+        document.getElementById("bmrMale").classList.add("active");
+    } else {
+        document.getElementById("bmrFemale").classList.add("active");
+    }
+}
+
+
+function calculateBMR() {
+
+    const age = Number(document.getElementById("bmrAge").value);
+    const weight = Number(document.getElementById("bmrWeight").value);
+    const height = Number(document.getElementById("bmrHeight").value);
+
+    if (!age || !weight || !height) {
+        alert("Please enter your age, weight and height.");
+        return;
+    }
+
+    const bmr = calculateBMRValue(
+        age,
+        weight,
+        height,
+        bmrGender
+    );
+
+    document.getElementById("bmrValue").textContent =
+        Math.round(bmr) + " kcal/day";
+
+    document.getElementById("bmrResults").classList.add("show");
+}
+
+
+function setTdeeGender(value) {
+
+    tdeeGender = value;
+
+    document.getElementById("tdeeMale").classList.remove("active");
+    document.getElementById("tdeeFemale").classList.remove("active");
+
+    if (value === "male") {
+        document.getElementById("tdeeMale").classList.add("active");
+    } else {
+        document.getElementById("tdeeFemale").classList.add("active");
+    }
+}
+
+
+function calculateTDEE() {
+
+    const age = Number(document.getElementById("tdeeAge").value);
+    const weight = Number(document.getElementById("tdeeWeight").value);
+    const height = Number(document.getElementById("tdeeHeight").value);
+    const activity = Number(document.getElementById("tdeeActivity").value);
+
+    if (!age || !weight || !height) {
+        alert("Please enter your age, weight and height.");
+        return;
+    }
+
+    const bmr = calculateBMRValue(
+        age,
+        weight,
+        height,
+        tdeeGender
+    );
+
+    const tdee = bmr * activity;
+
+    document.getElementById("tdeeValue").textContent =
+        Math.round(tdee) + " kcal/day";
+
+    document.getElementById("tdeeBmr").textContent =
+        Math.round(bmr) + " kcal";
+
+    document.getElementById("tdeeResult").textContent =
+        Math.round(tdee) + " kcal";
+
+    document.getElementById("activityFactor").textContent =
+        activity;
+
+    document.getElementById("tdeeResults").classList.add("show");
+}
+
+
+function calculateBMI() {
+
+    const weight = Number(document.getElementById("bmiWeight").value);
+    const height = Number(document.getElementById("bmiHeight").value);
+
+    if (!weight || !height) {
+        alert("Please enter your weight and height.");
+        return;
+    }
+
+    const heightMeters = height / 100;
+
+    const bmi = weight / (heightMeters * heightMeters);
+
+    let category = "";
+
+    if (bmi < 18.5) {
+        category = "Underweight";
+    } else if (bmi < 25) {
+        category = "Normal weight";
+    } else if (bmi < 30) {
+        category = "Overweight";
+    } else {
+        category = "Obesity";
+    }
+
+    document.getElementById("bmiValue").textContent =
+        bmi.toFixed(1);
+
+    document.getElementById("bmiCategory").textContent =
+        category;
+
+    document.getElementById("bmiResults").classList.add("show");
+}
+
+
+function setDefGender(value) {
+
+    defGender = value;
+
+    document.getElementById("defMale").classList.remove("active");
+    document.getElementById("defFemale").classList.remove("active");
+
+    if (value === "male") {
+        document.getElementById("defMale").classList.add("active");
+    } else {
+        document.getElementById("defFemale").classList.add("active");
+    }
+}
+
+
+function calculateDeficit() {
+
+    const age = Number(document.getElementById("defAge").value);
+    const weight = Number(document.getElementById("defWeight").value);
+    const height = Number(document.getElementById("defHeight").value);
+    const activity = Number(document.getElementById("defActivity").value);
+
+    if (!age || !weight || !height) {
+        alert("Please enter your age, weight and height.");
+        return;
+    }
+
+    const bmr = calculateBMRValue(
+        age,
+        weight,
+        height,
+        defGender
+    );
+
+    const tdee = bmr * activity;
+
+    const target = tdee - 500;
+
+    document.getElementById("defTarget").textContent =
+        Math.round(target) + " kcal/day";
+
+    document.getElementById("defBmr").textContent =
+        Math.round(bmr) + " kcal";
+
+    document.getElementById("defTdee").textContent =
+        Math.round(tdee) + " kcal";
+
+    document.getElementById("defResults").classList.add("show");
+}
+
+</script>
+
+</body>
+</html>
