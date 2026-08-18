@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Calorie Calculator - Daily Calorie Needs | CaloriePilot</title>
+
+<meta name="description" content="Use the free CaloriePilot Calorie Calculator to estimate your daily calorie needs, BMR and maintenance calories based on your age, weight, height, sex and activity level.">
+
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://caloriepilot.mycaloriepilot.workers.dev/calorie-calculator.html">
+
+<meta property="og:title" content="Calorie Calculator - CaloriePilot">
+<meta property="og:description" content="Calculate your estimated daily calorie needs and maintenance calories for free.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://caloriepilot.mycaloriepilot.workers.dev/calorie-calculator.html">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "name":"Calorie Calculator",
+  "description":"Free online calorie calculator for estimating daily calorie and maintenance needs.",
+  "url":"https://caloriepilot.mycaloriepilot.workers.dev/calorie-calculator.html",
+  "isPartOf":{
+    "@type":"WebSite",
+    "name":"CaloriePilot",
+    "url":"https://caloriepilot.mycaloriepilot.workers.dev/"
+  }
+}
+</script>
+
+<style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#f5f7fb;
+color:#172033;
+line-height:1.7;
+}
+
+header{
+background:#fff;
+border-bottom:1px solid #e5e9f0;
+}
+
+.nav{
+max-width:1100px;
+margin:auto;
+padding:16px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:24px;
+font-weight:800;
+color:#1769e0;
+text-decoration:none;
+}
+
+.home{
+color:#536176;
+text-decoration:none;
+font-weight:600;
+}
+
+.hero{
+background:#fff;
+text-align:center;
+padding:55px 20px;
+}
+
+.hero h1{
+font-size:42px;
+line-height:1.2;
+margin-bottom:15px;
+}
+
+.hero h1 span{
+color:#1769e0;
+}
+
+.hero p{
+max-width:750px;
+margin:auto;
+color:#687386;
+font-size:18px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:40px 20px;
+}
+
+.calculator{
+background:#fff;
+padding:30px;
+border-radius:18px;
+box-shadow:0 8px 30px rgba(20,40,80,.08);
+margin-bottom:35px;
+}
+
+.calculator h2{
+text-align:center;
+margin-bottom:8px;
+}
+
+.description{
+text-align:center;
+color:#687386;
+margin-bottom:25px;
+}
+
+.fields{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+}
+
+.field label{
+display:block;
+font-weight:bold;
+margin-bottom:6px;
+}
+
+.field input,
+.field select{
+width:100%;
+padding:13px;
+border:1px solid #d7dee9;
+border-radius:10px;
+font-size:16px;
+background:#fff;
+}
+
+.full{
+grid-column:1/-1;
+}
+
+button{
+width:100%;
+padding:15px;
+margin-top:20px;
+border:0;
+border-radius:11px;
+background:#1769e0;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+background:#0f58c5;
+}
+
+.result{
+display:none;
+margin-top:25px;
+padding:25px;
+border-radius:15px;
+background:#eef5ff;
+text-align:center;
+}
+
+.result.show{
+display:block;
+}
+
+.result-title{
+color:#687386;
+font-size:14px;
+}
+
+.result-main{
+font-size:34px;
+font-weight:bold;
+color:#1769e0;
+margin:5px 0;
+}
+
+.result-info{
+color:#596579;
+}
+
+.content{
+background:#fff;
+padding:30px;
+border-radius:18px;
+margin-bottom:25px;
+}
+
+.content h2{
+margin-bottom:12px;
+margin-top:20px;
+}
+
+.content h2:first-child{
+margin-top:0;
+}
+
+.content p{
+color:#596579;
+margin-bottom:14px;
+}
+
+.links{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.links a{
+display:block;
+padding:14px;
+background:#f5f7fb;
+border-radius:10px;
+color:#1769e0;
+text-decoration:none;
+font-weight:bold;
+}
+
+footer{
+text-align:center;
+padding:35px 20px;
+background:#fff;
+border-top:1px solid #e5e9f0;
+color:#7a8494;
+}
+
+@media(max-width:700px){
+
+.hero h1{
+font-size:32px;
+}
+
+.hero p{
+font-size:16px;
+}
+
+.fields{
+grid-template-columns:1fr;
+}
+
+.full{
+grid-column:auto;
+}
+
+.calculator,
+.content{
+padding:22px;
+}
+
+.links{
+grid-template-columns:1fr;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="nav">
+
+<a class="logo" href="/">
+CaloriePilot
+</a>
+
+<a class="home" href="/">
+Home</a>
+
+</div>
+</header>
+
+<section class="hero">
+
+<h1>
+Free <span>Calorie Calculator</span>
+</h1>
+
+<p>
+Estimate your daily calorie needs, BMR and maintenance calories
+using your age, weight, height, sex and activity level.
+</p>
+
+</section>
+
+<main class="container">
+
+<section class="calculator">
+
+<h2>Calorie Calculator</h2>
+
+<p class="description">
+Enter your information below to estimate your daily calorie needs.
+</p>
+
+<div class="fields">
+
+<div class="field">
+<label for="age">Age</label>
+<input id="age" type="number" min="1" max="120" placeholder="25">
+</div>
+
+<div class="field">
+<label for="weight">Weight (kg)</label>
+<input id="weight" type="number" min="1" placeholder="70">
+</div>
+
+<div class="field">
+<label for="height">Height (cm)</label>
+<input id="height" type="number" min="50" max="250" placeholder="175">
+</div>
+
+<div class="field">
+<label for="sex">Sex</label>
+<select id="sex">
+<option value="male">Male</option>
+<option value="female">Female</option>
+</select>
+</div>
+
+<div class="field full">
+<label for="activity">Activity Level</label>
+
+<select id="activity">
+
+<option value="1.2">
+Sedentary - little or no exercise
+</option>
+
+<option value="1.375">
+Lightly Active - light exercise 1-3 days/week
+</option>
+
+<option value="1.55">
+Moderately Active - exercise 3-5 days/week
+</option>
+
+<option value="1.725">
+Very Active - hard exercise 6-7 days/week
+</option>
+
+<option value="1.9">
+Extremely Active - very hard exercise or physical job
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<button onclick="calculateCalories()">
+Calculate Calories
+</button>
+
+<div class="result" id="result">
+
+<div class="result-title">
+Estimated Daily Maintenance Calories
+</div>
+
+<div class="result-main" id="mainResult"></div>
+
+<div class="result-info" id="resultInfo"></div>
+
+</div>
+
+</section>
+
+<section class="content">
+
+<h2>What Is a Calorie Calculator?</h2>
+
+<p>
+A calorie calculator estimates how many calories your body may need
+each day based on factors such as age, body weight, height, sex and
+physical activity.
+</p>
+
+<p>
+The result can help you understand your estimated maintenance
+calorie intake and make more informed nutrition and fitness decisions.
+</p>
+
+<h2>How Does the Calorie Calculator Work?</h2>
+
+<p>
+CaloriePilot uses the Mifflin-St Jeor equation to estimate Basal
+Metabolic Rate (BMR). Your BMR is then multiplied by an activity
+factor to estimate Total Daily Energy Expenditure (TDEE).
+</p>
+
+<h2>What Is BMR?</h2>
+
+<p>
+BMR, or Basal Metabolic Rate, is an estimate of the energy your body
+uses at rest to support essential functions such as breathing,
+circulation and maintaining body temperature.
+</p>
+
+<h2>What Is TDEE?</h2>
+
+<p>
+TDEE stands for Total Daily Energy Expenditure. It estimates the
+total amount of energy you may use throughout a typical day,
+including physical activity.
+</p>
+
+<h2>Are These Results Exact?</h2>
+
+<p>
+No. Calorie calculations are estimates. Individual calorie needs
+can vary depending on body composition, activity, lifestyle and
+other factors.
+</p>
+
+<p>
+The results provided by CaloriePilot are for general informational
+purposes and are not medical advice.
+</p>
+
+</section>
+
+<section class="content">
+
+<h2>Frequently Asked Questions</h2>
+
+<h3>How many calories do I need per day?</h3>
+
+<p>
+Your daily calorie needs depend on factors including age, weight,
+height, sex and activity level. Use the calculator above for an
+individual estimate.
+</p>
+
+<h3>What is a maintenance calorie level?</h3>
+
+<p>
+Maintenance calories are an estimate of the amount of energy needed
+to maintain your current body weight based on your typical activity.
+</p>
+
+<h3>Can I use a calorie calculator for weight loss?</h3>
+
+<p>
+A calorie calculator can provide an estimate of maintenance calories.
+People commonly use that estimate as a starting point when planning
+their nutrition, but individual needs can vary.
+</p>
+
+</section>
+
+<section class="content">
+
+<h2>More Free Fitness Calculators</h2>
+
+<div class="links">
+
+<a href="/bmr-calculator.html">
+BMR Calculator
+</a>
+
+<a href="/tdee-calculator.html">
+TDEE Calculator
+</a>
+
+<a href="/bmi-calculator.html">
+BMI Calculator
+</a>
+
+<a href="/protein-calculator.html">
+Protein Calculator
+</a>
+
+<a href="/macro-calculator.html">
+Macro Calculator
+</a>
+
+<a href="/calorie-deficit-calculator.html">
+Calorie Deficit Calculator
+</a>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>
+© 2026 CaloriePilot. All rights reserved.
+</p>
+
+<p>
+Results are estimates and are not medical advice.
+</p>
+
+</footer>
+
+<script>
+
+function calculateCalories(){
+
+const age=Number(document.getElementById("age").value);
+
+const weight=Number(document.getElementById("weight").value);
+
+const height=Number(document.getElementById("height").value);
+
+const sex=document.getElementById("sex").value;
+
+const activity=Number(document.getElementById("activity").value);
+
+if(!age || !weight || !height){
+
+alert("Please enter your age, weight and height.");
+
+return;
+
+}
+
+let bmr;
+
+if(sex==="male"){
+
+bmr=
+(10*weight)+
+(6.25*height)-
+(5*age)+5;
+
+}else{
+
+bmr=
+(10*weight)+
+(6.25*height)-
+(5*age)-161;
+
+}
+
+const tdee=bmr*activity;
+
+document.getElementById("mainResult").textContent=
+Math.round(tdee)+" kcal/day";
+
+document.getElementById("resultInfo").innerHTML=
+"Estimated BMR: "+
+Math.round(bmr)+
+" kcal/day<br>"+
+"Estimated maintenance calories: "+
+Math.round(tdee)+
+" kcal/day";
+
+document.getElementById("result").classList.add("show");
+
+}
+
+</script>
+
+</body>
+</html>
