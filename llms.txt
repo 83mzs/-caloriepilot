@@ -1,0 +1,24 @@
+# CaloriePilot
+
+CaloriePilot is a free website providing online calorie and fitness calculators.
+
+## Main tools
+- Calorie Calculator: /calorie-calculator.html
+- BMR Calculator: /bmr-calculator.html
+- TDEE Calculator: /tdee-calculator.html
+- BMI Calculator: /bmi-calculator.html
+- Calorie Deficit Calculator: /calorie-deficit-calculator.html
+- Macro Calculator: /macro-calculator.html
+- Protein Calculator: /protein-calculator.html
+
+## Guides
+- Calorie Calculator Guide: /calorie-calculator-guide.html
+- Daily Calorie Needs Guide: /daily-calorie-needs-guide.html
+- BMR vs TDEE: /bmr-vs-tdee.html
+- How Many Calories Do I Need?: /how-many-calories-do-i-need.html
+- How to Calculate a Calorie Deficit: /how-to-calculate-calorie-deficit.html
+- How Much Protein Do I Need?: /how-much-protein-do-i-need.html
+- Macro Calculator Guide: /macro-calculator-guide.html
+
+## Notes
+Calculator results are estimates based on commonly used formulas and are not medical advice.
