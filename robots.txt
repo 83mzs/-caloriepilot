@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://caloriepilot.mycaloriepilot.workers.dev/sitemap.xml
+Sitemap: https://calorienexa.pages.dev/sitemap.xml
